@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Yuzo** is a local game soundtrack player with a built-in quiz, for **Windows and Android**.
+**Yuzo** is a local music player with a built-in quiz, for **Windows and Android**.
 
 - No web APIs, accounts or telemetry
 - Music comes from the user's own files
