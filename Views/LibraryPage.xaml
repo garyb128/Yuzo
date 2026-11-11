@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Yuzo.ViewModels"
+             xmlns:views="clr-namespace:Yuzo.Views"
+             x:Class="Yuzo.Views.LibraryPage"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+
+             <ContentPage.Resources>
+                 <ResourceDictionary>
+                     <views:LibraryItemTemplateSelector x:Key="LibraryItemTemplateSelector">
+                         <views:LibraryItemTemplateSelector.AlbumTemplate>
+                               <DataTemplate>
+                                   <VerticalStackLayout WidthRequest="150" HorizontalOptions="Start" Spacing="6" Padding="0,0,0,8">
+                                       <Border WidthRequest="150" HeightRequest="150"
+                                               BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                                               StrokeThickness="0" StrokeShape="RoundRectangle 8">
+                                           <Image Source="{Binding ArtworkPath}" Aspect="AspectFill" />
+                                         <Border.GestureRecognizers>
+                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LibraryViewModel}}, Path=PlayAlbumCommand}"
+                                                                   CommandParameter="{Binding .}" />
+                                         </Border.GestureRecognizers>
+                                     </Border>
+                                     <Label Text="{Binding Album}" FontSize="16" FontAttributes="Bold" MaxLines="1" LineBreakMode="TailTruncation"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" />
+                                     <Label Text="{Binding YearLabel}" FontSize="13" MaxLines="1" LineBreakMode="TailTruncation"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+                                 </VerticalStackLayout>
+                             </DataTemplate>
+                         </views:LibraryItemTemplateSelector.AlbumTemplate>
+                         <views:LibraryItemTemplateSelector.ArtistTemplate>
+                             <DataTemplate>
+                                 <Grid ColumnDefinitions="64,*,Auto" ColumnSpacing="12" Padding="0,6">
+                                     <Border BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                                             StrokeThickness="0" StrokeShape="RoundRectangle 8" WidthRequest="64" HeightRequest="64">
+                                         <Image Source="{Binding ArtworkPath}" Aspect="AspectFill" />
+                                     </Border>
+                                     <Label Grid.Column="1" Text="{Binding Artist}" VerticalOptions="Center" FontSize="15"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" />
+                                     <Label Grid.Column="2" Text="{Binding TrackCount, StringFormat='{0} songs'}" VerticalOptions="Center" FontSize="13"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+                                 </Grid>
+                             </DataTemplate>
+                         </views:LibraryItemTemplateSelector.ArtistTemplate>
+                         <views:LibraryItemTemplateSelector.SongTemplate>
+                             <DataTemplate>
+                                 <Grid ColumnDefinitions="56,*,Auto,Auto" ColumnSpacing="12" Padding="0,6">
+                                     <Grid.GestureRecognizers>
+                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LibraryViewModel}}, Path=SelectTrackCommand}"
+                                                               CommandParameter="{Binding .}" />
+                                     </Grid.GestureRecognizers>
+                                     <Border Grid.Column="0" BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                                             StrokeThickness="0" StrokeShape="RoundRectangle 6" WidthRequest="56" HeightRequest="56">
+                                         <Image Source="{Binding ArtworkPath}" Aspect="AspectFill" />
+                                     </Border>
+                                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                         <Label Text="{Binding Title}" FontSize="15" LineBreakMode="TailTruncation" MaxLines="1"
+                                                TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" />
+                                         <Label Text="{Binding DisplayArtist}" FontSize="13" LineBreakMode="TailTruncation" MaxLines="1"
+                                                TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+                                     </VerticalStackLayout>
+                                     <Label Grid.Column="2" Text="{Binding DurationLabel}" FontSize="13" VerticalOptions="Center"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+                                     <Label Grid.Column="3" Text="{Binding FavouriteIcon}" FontSize="20" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="40"
+                                            TextColor="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}">
+                                         <Label.GestureRecognizers>
+                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LibraryViewModel}}, Path=ToggleFavouriteCommand}"
+                                                                   CommandParameter="{Binding .}" />
+                                         </Label.GestureRecognizers>
+                                     </Label>
+                                 </Grid>
+                             </DataTemplate>
+                         </views:LibraryItemTemplateSelector.SongTemplate>
+                     </views:LibraryItemTemplateSelector>
+                 </ResourceDictionary>
+             </ContentPage.Resources>
+
+                <Grid RowDefinitions="Auto,Auto,Auto,*,Auto"
+             Padding="24,20,24,8"
+             RowSpacing="12">
+
+        <!-- ── Header ── -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+            <Label Text="Your Library"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
+                   VerticalOptions="Center" />
+
+            <Button Grid.Column="1"
+                    Text="Import"
+                    Command="{Binding ImportFolderCommand}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="20"
+                    Padding="16,6"
+                    HeightRequest="40" />
+
+            <Button Grid.Column="2"
+                    Text="Clear"
+                    Command="{Binding ClearAllCommand}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                    CornerRadius="20"
+                    Padding="16,6"
+                    HeightRequest="40" />
+        </Grid>
+
+        <!-- ── Search bar ── -->
+        <Border Grid.Row="1"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 24"
+                Padding="18,0">
+            <Entry Placeholder="Search tracks, artists, albums…"
+                   PlaceholderColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
+                   BackgroundColor="Transparent"
+                   Text="{Binding SearchText}"
+                   HeightRequest="46"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <HorizontalStackLayout Grid.Row="2" Spacing="8">
+            <Button Text="Albums" Command="{Binding SelectViewCommand}" CommandParameter="Albums"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" CornerRadius="8" Padding="16,8">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedView}" Value="Albums">
+                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Text="Artists" Command="{Binding SelectViewCommand}" CommandParameter="Artists"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" CornerRadius="8" Padding="16,8">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedView}" Value="Artists">
+                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Text="Songs" Command="{Binding SelectViewCommand}" CommandParameter="Songs"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" CornerRadius="8" Padding="16,8">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedView}" Value="Songs">
+                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button Text="Favourites" Command="{Binding ToggleFavouritesFilterCommand}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                    TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" CornerRadius="8" Padding="16,8">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding ShowFavouritesOnly}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </HorizontalStackLayout>
+
+        <CollectionView x:Name="LibraryItems" Grid.Row="3" ItemsSource="{Binding VisibleItems}"
+                        ItemTemplate="{StaticResource LibraryItemTemplateSelector}" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="6" HorizontalItemSpacing="12" VerticalItemSpacing="20" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <Label Text="No items found. Import a music folder to get started."
+                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                       HorizontalOptions="Center" VerticalOptions="Center" />
+            </CollectionView.EmptyView>
+        </CollectionView>
+        <ContentView x:Name="PlaybackBarHost" Grid.Row="4" />
+    </Grid>
+</ContentPage>

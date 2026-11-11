@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Yuzo.Views.PlaybackBarView"
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}">
+    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="56,*,Auto" ColumnSpacing="12" Padding="16,8">
+        <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" WidthRequest="48" HeightRequest="48"
+                StrokeThickness="0" StrokeShape="RoundRectangle 6"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}">
+            <Image Source="{Binding CurrentTrack.ArtworkPath}" Aspect="AspectFill" />
+        </Border>
+
+        <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" VerticalOptions="Center" Spacing="2">
+            <Label Text="{Binding CurrentTrack.Title, TargetNullValue=Nothing playing}"
+                   FontSize="14" FontAttributes="Bold" LineBreakMode="TailTruncation" MaxLines="1"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}" />
+            <Label Text="{Binding CurrentTrack.DisplayArtist, TargetNullValue=Choose a song from your library}"
+                   FontSize="12" LineBreakMode="TailTruncation" MaxLines="1"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="0" Grid.Column="2" Spacing="8" VerticalOptions="Center">
+            <Button Text="⏮" Command="{Binding PreviousCommand}" FontSize="16" Padding="8,4"
+                    BackgroundColor="Transparent" TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                    SemanticProperties.Description="Previous track" />
+            <Button Text="{Binding PlayPauseIcon}" Command="{Binding TogglePlayPauseCommand}" FontSize="16" Padding="8,4"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}" TextColor="White"
+                    SemanticProperties.Description="Play or pause" />
+            <Button Text="⏭" Command="{Binding NextCommand}" FontSize="16" Padding="8,4"
+                    BackgroundColor="Transparent" TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
+                    SemanticProperties.Description="Next track" />
+        </HorizontalStackLayout>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" VerticalOptions="Center">
+            <Label Text="{Binding PositionText}" FontSize="11" VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+            <Slider x:Name="SeekSlider" Grid.Column="1" Minimum="0" Maximum="{Binding Duration}" Value="{Binding Position}"
+                    MinimumTrackColor="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}"
+                    MaximumTrackColor="{AppThemeBinding Light={StaticResource LightSurfaceSecondary}, Dark={StaticResource DarkSurfaceSecondary}}"
+                    DragStarted="SeekSlider_DragStarted" DragCompleted="SeekSlider_DragCompleted" />
+            <Label Grid.Column="2" Text="{Binding DurationText}" FontSize="11" VerticalOptions="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+        </Grid>
+    </Grid>
+</ContentView>

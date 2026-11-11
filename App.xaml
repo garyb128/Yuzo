@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Yuzo.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Define Colors (Keep these) -->
+            <Color x:Key="LightBackground">#F3F4F5</Color>
+            <Color x:Key="LightSurface">#FFFFFF</Color>
+            <Color x:Key="LightSurfaceSecondary">#E7E9EC</Color>
+            <Color x:Key="LightTextPrimary">#252830</Color>
+            <Color x:Key="LightTextSecondary">#70747D</Color>
+            <Color x:Key="LightBorder">#DADCE0</Color>
+            <Color x:Key="LightAccent">#637FAD</Color>
+
+            <Color x:Key="DarkBackground">#202226</Color>
+            <Color x:Key="DarkSurface">#292C31</Color>
+            <Color x:Key="DarkSurfaceSecondary">#25282D</Color>
+            <Color x:Key="DarkTextPrimary">#F1F2F4</Color>
+            <Color x:Key="DarkTextSecondary">#A9ADB5</Color>
+            <Color x:Key="DarkBorder">#393D44</Color>
+            <Color x:Key="DarkAccent">#8EA8D4</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

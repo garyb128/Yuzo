@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="Yuzo.Views.PlaylistsPage"
+			 Title="Playlists">
+	<Grid RowDefinitions="*,Auto">
+		<VerticalStackLayout Padding="24" Spacing="8">
+			<Label Text="Playlists" FontSize="28" FontAttributes="Bold" />
+			<Label Text="Playlist content will appear here." />
+		</VerticalStackLayout>
+		<ContentView x:Name="PlaybackBarHost" Grid.Row="1" />
+	</Grid>
+</ContentPage>

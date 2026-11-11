@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Yuzo.MainDesktopShell">
+
+    <Grid RowDefinitions="*,Auto" ColumnDefinitions="220,*">
+
+        <!-- SIDEBAR -->
+        <Border Grid.Row="0" Grid.Column="0" 
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}" 
+                StrokeThickness="0" 
+                StrokeShape="RoundRectangle 0">
+
+            <VerticalStackLayout Padding="16" Spacing="8">
+                <Label Text="Menu" FontSize="12" FontAttributes="Bold" Margin="0,0,0,8" 
+                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+
+                <Label Text="Home" FontSize="15" Padding="8" />
+
+                <Label Text="Library" FontSize="15" Padding="8" FontAttributes="Bold" 
+                       TextColor="{AppThemeBinding Light={StaticResource LightAccent}, Dark={StaticResource DarkAccent}}" />
+
+                <Label Text="Playlists" FontSize="15" Padding="8" />
+                <Label Text="Favourites" FontSize="15" Padding="8" />
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- MAIN CONTENT AREA -->
+        <ScrollView Grid.Row="0" Grid.Column="1" Padding="32">
+            <Label Text="Main Content Area (Library Page goes here)" FontSize="24" />
+        </ScrollView>
+
+        <!-- BOTTOM PLAYBACK BAR -->
+        <Border Grid.Row="1" Grid.ColumnSpan="2" 
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}" 
+                StrokeThickness="1" 
+                Stroke="{AppThemeBinding Light={StaticResource LightBorder}, Dark={StaticResource DarkBorder}}"
+                StrokeShape="RoundRectangle 0"
+                HeightRequest="90" Padding="16">
+
+            <Label Text="Persistent Playback Bar" HorizontalOptions="Center" VerticalOptions="Center" 
+                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}" />
+        </Border>
+
+    </Grid>
+</ContentPage>
