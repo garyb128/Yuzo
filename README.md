@@ -1,6 +1,6 @@
 # Yuzo
 
-Yuzo is a local game-soundtrack player built with .NET MAUI. It plays music from your own files. Nothing is streamed, no account is required, and no tracks are bundled with the app.
+Yuzo is a local music player built with .NET MAUI. It plays music from your own files. Nothing is streamed, no account is required, and no tracks are bundled with the app.
 
 Windows and Android are the target platforms. On Windows, you import a folder of audio files. Supported types are MP3, FLAC, M4A, AAC, OGG, Opus, and WAV. Tags are read locally and stored in a SQLite library.
 
